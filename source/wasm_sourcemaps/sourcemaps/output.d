@@ -62,15 +62,22 @@ auto toSourceMap(DebugLine line, DebugInfo info, uint codeSectionOffset, bool em
         sourceMap[filepath] = state.sourceId;
         sources.put(filepath);
         if (includeSources) {
-          if (!exists(filepath)) {
-            if (canFind(filepath, ".d-mixin-")) {
-              errors~= "Warning: ignoring file " ~ filepath~ " Mixins aren't supported.";
-              contents.put(format("Warning: ignoring file %s. Mixins aren't supported.", filepath));
-            } else {
-              errors~= "Error: Cannot find "~filepath;
-              contents.put(format("Error: Cannot find %s", filepath));
+          if (!exists(filepath))
+          {
+            string error;
+            if (canFind(filepath, ".d-mixin-"))
+            {
+              error = "Warning: ignoring file " ~ filepath~ " Mixins aren't supported.";
+              errors~= error;
+              contents.put(error);
+            } else
+            {
+              error = "Error: Cannot find "~filepath;
+              errors~= error;
+              contents.put(error);
             }
-          } else
+          }
+          else
             contents.put(readText(filepath));
         }
       }

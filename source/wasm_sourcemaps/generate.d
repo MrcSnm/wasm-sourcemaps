@@ -38,7 +38,7 @@ auto getSourceMappingUrl(string outputPath, string embedBaseUrl = null)
  *   includeSources = includes the source files in the sourcemap
  * Returns: 
  */
-bool generateSourceMaps(string outputPath, string inputPath, string embedBaseUrl, bool shouldEmbed = true, bool includeSources = false, out string[] errors)
+bool generateSourceMaps(string outputPath, string inputPath, string embedBaseUrl, bool shouldEmbed = true, bool includeSources = false, ref string[] errors)
 {
     if (!exists(inputPath)) {
         errors~= "Error: File "~inputPath~" doesn't exist";
